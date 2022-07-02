@@ -1,3 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from .forms import UrlForm
 
-# Create your views here.
+
+def my_view(request):
+
+    return redirect('/test/')
+
+
+
