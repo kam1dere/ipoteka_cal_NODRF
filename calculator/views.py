@@ -3,8 +3,8 @@ from .forms import UrlForm
 
 
 def my_view(request):
-
-    return redirect('/test/')
-
-
-
+    if request.method == 'GET':
+        form = UrlForm(request.POST)
+        if form.is_valid():
+            name = form.newURL
+            return redirect('')
