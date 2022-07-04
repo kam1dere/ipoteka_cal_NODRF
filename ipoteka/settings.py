@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     # Сторонние библиотеки
     'rest_framework',
     'django_filters',
+    'crispy_forms',
     # Мои приложения
     'calculator.apps.CalculatorConfig',
 ]
@@ -131,6 +132,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': (
         'django_filters.rest_framework.DjangoFilterBackend',
-        ...
     ),
 }

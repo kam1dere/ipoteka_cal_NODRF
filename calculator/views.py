@@ -1,8 +1,17 @@
-from django.shortcuts import render, redirect
-from .forms import UrlForm
+from rest_framework import generics
+from django_filters import rest_framework as filters
+from .models import Bank
+from .serializers import BankSerializer
 
 
-def my_view(request):
-    if request.method == 'GET':
-        form = UrlForm(request.GET)
-        return render(request, 'redir.html', {'form': form})
+class BankFilter(filters.FilterSet):
+    class Meta:
+        model = Bank
+        fields = ['term_min', 'rate_min', 'payment_min']
+
+
+class BankList(generics.ListAPIView):
+    queryset = Bank.objects.all()
+    serializer_class = BankSerializer
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_class = BankFilter
