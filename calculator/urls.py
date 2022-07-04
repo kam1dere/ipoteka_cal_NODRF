@@ -5,5 +5,5 @@ from .views import BankList
 
 # path('calculator/', include('calculator.urls')),
 urlpatterns = [
-    path('', BankList.as_view(), name='redir')
+    path('<int:pk>/', BankList.as_view(), name='redir')
 ]
