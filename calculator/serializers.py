@@ -5,4 +5,4 @@ from .models import Bank
 class BankSerializer(serializers.ModelSerializer):
     class Meta:
         model = Bank
-        exclude = ['name']
+        fields = '__all__'

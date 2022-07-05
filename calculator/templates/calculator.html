@@ -17,5 +17,12 @@ sgsdgesg
         {{ obj.term_min }}
     {% endfor %}
 
+{{ term_min }}
+<h1>Bank</h1>
+<ul>
+    {% for bank in banks %}
+    <li>{{ bank.name }} {{ bank.term_min }}</li>
+    {% endfor %}
+</ul>
 </body>
 </html>
