@@ -5,6 +5,22 @@ from django_filters import rest_framework as filters
 from .models import Bank
 from .serializers import BankSerializer
 
+"""""
+ТЗ:
+
+Клиент вводит следующие данные:
+
+1. Стоимость объекта недвижимости, в рублях без копеек. Тип данных: integer
+2. Первоначальный взнос, в рублях без копеек. Тип данных: integer
+3. Срок, в годах. Тип данных: integer
+
+В ответ ему приходит массив с объектами ипотечных предложений. В каждом объекте есть следующие данные:
+
+1. Наименование банка. Тип данных: string
+2. Ипотечная ставка, в процентах. Тип данных: float
+3. Платеж по ипотеке, в рублях без копеек.  Тип данных: integer
+"""""
+
 
 class BankFilter(filters.FilterSet):
     class Meta:
