@@ -6,9 +6,17 @@
 </head>
 <body>
 <form method="GET" action="">
-    <input type="text" name="bank_id">
+    <label for="deposit">Сумма кредита:</label>
+    <input type="number" name="deposit">
+    <label for="first_payment">Первый платеж:</label>
+    <input type="number" name="first_payment">
+    <label for="term">Срок в годах:</label>
+    <input type="number" name="term_fk">
     <button type="submit">Send me!</button>
 </form>
-{{reqs.name}}
+{% for bank in reqs %}
+    <li>{{ bank.name }} {{ bank.fact_pay }}</li>
+
+{% endfor %}
 </body>
 </html>
