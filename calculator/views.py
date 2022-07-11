@@ -8,8 +8,8 @@ class MyView(ListView):
     context_object_name = 'reqs'
 
     def get_queryset(self):
-        nam = self.request.GET['message']
-        queryset = Bank.objects.get(id=nam)
+        nam = self.request.GET['bank_id']
+        queryset = Bank.objects.get(name=nam)
         return queryset
 
 
