@@ -1,3 +1,4 @@
+from django.db.models import PositiveIntegerField, ExpressionWrapper, Q
 from django.utils.datastructures import MultiValueDictKeyError
 
 from .models import Bank
@@ -16,18 +17,21 @@ class MyView(ListView):
         try:
             deposit = int(request['deposit'])
             first_payment = int(request['first_payment'])
-            term_fk = int(request['term_fk'])
-            queryset = queryset.annotate(fact_pay=monthly_payment(deposit, first_payment, term_fk, stavka='rate_min'))
+            term = int(request['term'])
+            summa = deposit - first_payment
+            queryset = Bank.objects.filter(Q(payment_min__lte=summa) & Q(payment_max__gte=summa) &
+                                           Q(term_min__lte=term) & Q(term_max__gte=term))
+            queryset = queryset.annotate(fact_pay=ExpressionWrapper(monthly_payment(summa, term, stavka='rate_min'),
+                                                                    output_field=PositiveIntegerField()))
             return queryset
         except MultiValueDictKeyError:
+            print('Введены неверные данные')
+            return queryset
+        except ValueError:
             print('Введены неверные данные')
             return queryset
 
 
 """
-Нормальный вывод
-сделать проверку введеных полей
-вывод в зависимости от общей суммы кредита (могут бить потолки)
-Сделать нормальную фильтрацию
-нулевой ввод
+Сделать нормальную сортировку
 """

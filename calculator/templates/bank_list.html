@@ -7,15 +7,15 @@
 <body>
 <form method="GET" action="">
     <label for="deposit">Сумма кредита:</label>
-    <input type="number" name="deposit">
+    <input type="number" min="0" name="deposit">
     <label for="first_payment">Первый платеж:</label>
-    <input type="number" name="first_payment">
+    <input type="number" min="0" name="first_payment">
     <label for="term">Срок в годах:</label>
-    <input type="number" name="term_fk">
+    <input type="number" min="0" name="term">
     <button type="submit">Send me!</button>
 </form>
 {% for bank in reqs %}
-    <li>{{ bank.name }} {{ bank.fact_pay }}</li>
+    <li>{{ bank.name }} ставка: {{ bank.rate_min }} Ежемесячный платеж: {{ bank.fact_pay }}</li>
 
 {% endfor %}
 </body>
