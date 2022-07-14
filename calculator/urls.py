@@ -1,9 +1,12 @@
-from django.urls import path
+from django.urls import path, include
 from rest_framework import routers
-from .views import MyView
-
+from .views import BankList, BankViewSet
 
 # path('calculator/', include('calculator.urls')),
+router = routers.SimpleRouter()
+router.register(r'api', BankViewSet)
 urlpatterns = [
-    path('', MyView.as_view(), name='bank_list')
+    path('', BankList.as_view(), name='bank_list')
 ]
+
+urlpatterns += router.urls

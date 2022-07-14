@@ -1,12 +1,14 @@
 from django.db.models import PositiveIntegerField, ExpressionWrapper, Q
 from django.utils.datastructures import MultiValueDictKeyError
+from rest_framework import viewsets
+from django.views.generic import ListView
 
 from .models import Bank
-from django.views.generic import ListView
 from .math import monthly_payment
+from .serializers import BankSerializer
 
 
-class MyView(ListView):
+class BankList(ListView):
     model = Bank
     template_name = 'bank_list.html'
     context_object_name = 'banks'
@@ -32,3 +34,6 @@ class MyView(ListView):
             return queryset
 
 
+class BankViewSet(viewsets.ModelViewSet):
+    queryset = Bank.objects.all()
+    serializer_class = BankSerializer
