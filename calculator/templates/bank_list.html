@@ -14,7 +14,7 @@
     <input type="number" min="0" name="term">
     <button type="submit">Send me!</button>
 </form>
-{% for bank in reqs %}
+{% for bank in banks %}
     <li>{{ bank.name }} ставка: {{ bank.rate_min }} Ежемесячный платеж: {{ bank.fact_pay }}</li>
 
 {% endfor %}

@@ -9,7 +9,7 @@ from .math import monthly_payment
 class MyView(ListView):
     model = Bank
     template_name = 'bank_list.html'
-    context_object_name = 'reqs'
+    context_object_name = 'banks'
 
     def get_queryset(self):
         queryset = Bank.objects.all().order_by('rate_min')
@@ -20,7 +20,7 @@ class MyView(ListView):
             term = int(request['term'])
             summa = deposit - first_payment
             queryset = Bank.objects.filter(Q(payment_min__lte=summa) & Q(payment_max__gte=summa) &
-                                           Q(term_min__lte=term) & Q(term_max__gte=term))
+                                           Q(term_min__lte=term) & Q(term_max__gte=term)).order_by('rate_min')
             queryset = queryset.annotate(fact_pay=ExpressionWrapper(monthly_payment(summa, term, stavka='rate_min'),
                                                                     output_field=PositiveIntegerField()))
             return queryset
@@ -32,6 +32,3 @@ class MyView(ListView):
             return queryset
 
 
-"""
-Сделать нормальную сортировку
-"""
