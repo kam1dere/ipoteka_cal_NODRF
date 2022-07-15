@@ -46,7 +46,7 @@ class BankApiList(ListAPIView):
 
     def get_queryset(self):
         queryset = Bank.objects.all().order_by('rate_min')
-        request = self.request.GET
+        request = self.request.query_params
         try:
             deposit = int(request['deposit'])
             first_payment = int(request['first_payment'])
@@ -65,10 +65,8 @@ class BankApiList(ListAPIView):
             return queryset
 
     def get_serializer_context(self):
-        payment_monthly = self.request['fact_pay']
         return {
-            'deposit': self.request.GET['deposit'],
-            'first_payment': self.request.GET['first_payment'],
-            'term': self.request.GET['term'],
-            'payment_monthly': payment_monthly
+            'deposit': self.request.query_params['deposit'],
+            'first_payment': self.request.query_params['first_payment'],
+            'term': self.request.query_params['term'],
         }
