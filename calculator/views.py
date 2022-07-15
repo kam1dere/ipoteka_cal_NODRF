@@ -36,11 +36,13 @@ class BankList(ListView):
             return queryset
 
 
+# CRUD
 class BankViewSet(viewsets.ModelViewSet):
     queryset = Bank.objects.all()
     serializer_class = BankSerializer
 
 
+# Вывод из ДРФ в json
 class BankApiList(ListAPIView):
     serializer_class = BankSerializer
 
