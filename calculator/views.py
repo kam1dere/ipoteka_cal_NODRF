@@ -1,15 +1,15 @@
 from django.db.models import PositiveIntegerField, ExpressionWrapper, Q
 from django.utils.datastructures import MultiValueDictKeyError
-from rest_framework import viewsets
+from rest_framework import viewsets, permissions
 from django.views.generic import ListView
 from rest_framework.generics import ListAPIView
 
 from .models import Bank
 from .math import monthly_payment
-from .serializers import BankSerializer
+from .serializers import BankSerializer, BankSerializerAPI
 
 
-# Тут у меня вывод на HTML странице с элементарными формами
+# Вывод без дрф на HTML странице с элементарными формами
 class BankList(ListView):
     model = Bank
     template_name = 'bank_list.html'
@@ -39,12 +39,18 @@ class BankList(ListView):
 # CRUD
 class BankViewSet(viewsets.ModelViewSet):
     queryset = Bank.objects.all()
-    serializer_class = BankSerializer
+    serializer_class = BankSerializerAPI
+    permission_classes = [permissions.IsAdminUser]
 
 
-# Вывод из ДРФ в json
+# Вывод с использованием ДРФ
 class BankApiList(ListAPIView):
     serializer_class = BankSerializer
+    permission_classes = [permissions.AllowAny]
+    http_method_names = ['get']
+    ordering_fields = '__all__'
+    ordering = ['rate_min']
+    search_fields = ['name']
 
     def get_queryset(self):
         queryset = Bank.objects.all().order_by('rate_min')
