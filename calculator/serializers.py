@@ -2,6 +2,7 @@ from rest_framework import serializers
 from .models import Bank
 
 
+# Для ListApi
 class BankSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -15,3 +16,11 @@ class BankSerializer(serializers.ModelSerializer):
         representation['term'] = self.context['term']
         representation['payment_monthly'] = instance.fact_pay
         return representation
+
+
+# Для ViewSet
+class BankSerializerAPI(serializers.ModelSerializer):
+
+    class Meta:
+        model = Bank
+        fields = '__all__'
